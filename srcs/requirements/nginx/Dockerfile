@@ -2,21 +2,13 @@
 
 FROM debian:buster
 
-RUN apt-get upgrade && apt-get update -y
-RUN apt-get install -y nginx openssl
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y nginx
 
-ARG NGINX_DOMAIN
+COPY ./nibenoit.crt /etc/ssl/cert/
 
-RUN mkdir -p "/etc/cert/$NGINX_DOMAIN" && \
-    mkdir -p /var/run/nginx && \
-    chown -R www-data:www-data /var/run/nginx
 
-RUN openssl req -x509 -newkey rsa:4096 -keyout "/etc/cert/$NGINX_DOMAIN/key.pem" -out "/etc/cert/$NGINX_DOMAIN/cert.pem" -sha256 -days 365 -nodes -subj "/CN=$NGINX_DOMAIN"
-
-COPY ./nginx.conf /etc/nginx/nginx.conf
-COPY ./proxy.conf /etc/nginx/proxy.conf
-COPY ./wordpress.conf "/etc/nginx/conf.d/$NGINX_DOMAIN.conf"
-
-RUN sed -i "s/\$NGINX_DOMAIN/$NGINX_DOMAIN/g" /etc/nginx/conf.d/*
+EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
