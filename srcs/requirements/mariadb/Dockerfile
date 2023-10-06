@@ -1,7 +1,15 @@
-# Version: 1.0
+FROM debian:buster
 
-FROM debian:buster-slim
+RUN apt update && apt upgrade -y
+RUN apt install mariadb-server -y
 
-RUN apt-get update && apt-get upgrade && apt-get install -y mariadb-server
+COPY ./setup_script.sh /tmp/setup_script.sh
 
-EXPOSE 3306
+RUN sh /tmp/setup_script.sh
+RUN rm /tmp/setup_script.sh
+
+COPY ./docker-entrypoint.sh /usr/local/bin
+# EXPOSE 3306
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["mysqld"]

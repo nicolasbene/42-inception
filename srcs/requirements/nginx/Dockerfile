@@ -1,14 +1,12 @@
 # Version: 1.0
 
-FROM debian:buster
+FROM debian:buster-slim
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
+RUN apt-get update && apt-get upgrade
 RUN apt-get install -y nginx
 
-COPY ./nibenoit.crt /etc/ssl/cert/
+COPY conf 
 
-
-EXPOSE 443
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
