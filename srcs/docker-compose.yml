@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    image: nginx
+    ports:
+      - "8080:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+    networks:
+      - my-network
+
+  wordpress:
+    build:
+      context: ./wordpress
+    image: wordpress
+    volumes:
+      - wordpress-db:/var/www/html
+    networks:
+      - my-network
+
+  mariadb:
+    build:
+      context: ./mariadb
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - wordpress-db:/var/lib/mysql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  wordpress-db:
+version: '3'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    image: nginx
+    ports:
+      - "8080:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+    networks:
+      - my-network
+
+  wordpress:
+    build:
+      context: ./wordpress
+    image: wordpress
+    volumes:
+      - wordpress-db:/var/www/html
+    networks:
+      - my-network
+
+  mariadb:
+    build:
+      context: ./mariadb
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - wordpress-db:/var/lib/mysql
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  wordpress-db:
