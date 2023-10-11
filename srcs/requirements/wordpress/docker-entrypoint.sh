@@ -1,7 +1,7 @@
 #! /bin/bash
 
 sed -ie "s/\$MYSQL_USER/$MYSQL_USER/g" /var/www/html/wordpress/wp-config.php
-sed -ie "s/\$MYSQL_USER_PASSWD/$MYSQL_USER_PASSWD/g" /var/www/html/wordpress/wp-config.php
+sed -ie "s/\$MYSQL_PASSWD/$MYSQL_PASSWD/g" /var/www/html/wordpress/wp-config.php
 sed -ie "s/\$MYSQL_DATABASE/$MYSQL_DATABASE/g" /var/www/html/wordpress/wp-config.php
 
 wp core install --path='/var/www/html/wordpress' --url='localhost' \

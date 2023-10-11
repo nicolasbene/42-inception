@@ -7,7 +7,7 @@ define('DB_NAME', '$MYSQL_DATABASE');
 define('DB_USER', '$MYSQL_USER');
 
 /** MySQL database password */
-define('DB_PASSWORD', '$MYSQL_USER_PASSWD');
+define('DB_PASSWORD', '$MYSQL_PASSWD');
 
 /** MySQL hostname */
 define('DB_HOST', 'mariadb');

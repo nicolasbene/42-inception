@@ -9,17 +9,17 @@ services:
       context: requirements/mariadb
       args:
         - MYSQL_ROOT_PASSWD
-        - MYSQL_USER
-        - MYSQL_USER_PASSWD
         - MYSQL_DATABASE
+        - MYSQL_USER
+        - MYSQL_PASSWD
     networks:
       - inception
     restart: always
     environment:
       - MYSQL_ROOT_PASSWD
-      - MYSQL_USER
-      - MYSQL_USER_PASSWD
       - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWD
     volumes:
       - mariadb:/var/lib/mysql
   wordpress:
@@ -31,7 +31,7 @@ services:
     restart: always
     environment:
       - MYSQL_USER
-      - MYSQL_USER_PASSWD
+      - MYSQL_PASSWD
       - MYSQL_DATABASE
     volumes:
       - wordpress:/var/www/html/wordpress

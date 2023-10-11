@@ -7,15 +7,15 @@ RUN apt install mariadb-server mariadb-client -y
 ARG MYSQL_ROOT_PASSWD
 ARG MYSQL_DATABASE
 ARG MYSQL_USER
-ARG MYSQL_USER_PASSWD
+ARG MYSQL_PASSWD
 
 RUN service mysql start; \
     mariadb -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWD') WHERE User = 'root';"; \
     mariadb -e "DELETE FROM mysql.user WHERE USER = '';"; \
     mariadb -e "DROP DATABASE IF EXISTS test;"; \
     mariadb -e "CREATE DATABASE $MYSQL_DATABASE;"; \
-    mariadb -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD';"; \
-    mariadb -e "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_USER_PASSWD'"; \
+    mariadb -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWD';"; \
+    mariadb -e "GRANT ALL ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWD'"; \
     mariadb -e "FLUSH PRIVILEGES;"
 
 COPY ./docker-entrypoint.sh /usr/local/bin
