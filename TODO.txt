@@ -1,3 +1,6 @@
 Set the volumes path to:
 - /home/nibenoit/data/mariadb
 - /home/nibenoit/data/wordpress
+
+--
+Etat qui tourne bien sur la vm de 42
