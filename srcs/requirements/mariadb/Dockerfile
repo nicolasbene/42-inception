@@ -1,6 +1,14 @@
 # Version: 1.0
 FROM debian:buster
 
+# Modifiez la source des paquets pour utiliser un miroir Debian différent
+RUN echo "deb http://deb.debian.org/debian/ buster main" > /etc/apt/sources.list
+RUN echo "deb-src http://deb.debian.org/debian/ buster main" >> /etc/apt/sources.list
+RUN echo "deb http://deb.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list
+RUN echo "deb-src http://deb.debian.org/debian/ buster-updates main" >> /etc/apt/sources.list
+RUN echo "deb http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
+RUN echo "deb-src http://security.debian.org/ buster/updates main" >> /etc/apt/sources.list
+
 RUN apt update && apt upgrade -y
 RUN apt install mariadb-server mariadb-client -y
 
