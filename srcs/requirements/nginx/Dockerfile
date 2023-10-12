@@ -1,6 +1,6 @@
 # Version: 1.0
 
-FROM debian:buster-slim
+FROM debian:buster
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
