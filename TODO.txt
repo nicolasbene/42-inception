@@ -3,5 +3,9 @@ Set the volumes path to:
 - /home/nibenoit/data/wordpress
 
 create in Makefile
---
-Etat qui tourne bien sur la vm de 42
+
+----
+
+Make test without image in docker-commpose
+
+---
