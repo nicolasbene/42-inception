@@ -30,6 +30,14 @@ services:
       - MYSQL_USER
       - MYSQL_PASSWD
       - MYSQL_DATABASE
+      - NGINX_DOMAIN
+      - WORDPRESS_ADMIN_USER
+      - WORDPRESS_ADMIN_PASSWD
+      - WORDPRESS_ADMIN_EMAIL
+      - WORDPRESS_SITE_TITLE
+      - WORDPRESS_AUTHOR
+      - WORDPRESS_AUTHOR_EMAIL
+      - WORDPRESS_AUTHOR_PASSWD
     volumes:
       - wordpress:/var/www/html/wordpress
     depends_on:

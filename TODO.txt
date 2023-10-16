@@ -2,7 +2,7 @@ Set the volumes path to:
 - /home/nibenoit/data/mariadb
 - /home/nibenoit/data/wordpress
 
-create in Makefile
+a tester et modifier le chemin des volumes des containers
 
 ----
 
