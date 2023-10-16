@@ -19,7 +19,7 @@ all: build upd
 
 dir:
 	mkdir -p "$(HOME)/data/mariadb"
-	mkdir -p "$(HOME)/data/mariadb"
+	mkdir -p "$(HOME)/data/wordpress"
 
 upd:	dir $(ENV_FILE)
 	$(COMPOSE) up -d

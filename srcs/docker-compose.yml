@@ -12,7 +12,7 @@ services:
         - MYSQL_PASSWD
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWD
       - MYSQL_DATABASE
@@ -25,7 +25,7 @@ services:
     build: requirements/wordpress
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_USER
       - MYSQL_PASSWD
@@ -42,7 +42,7 @@ services:
         - NGINX_DOMAIN
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     ports:
       - 443:443
     volumes:
@@ -54,9 +54,17 @@ volumes:
   mariadb:
     name: mariadb
     driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $HOME/data/mariadb
   wordpress:
     name: wordpress
     driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: $HOME/data/wordpress
 
 networks:
   inception:
