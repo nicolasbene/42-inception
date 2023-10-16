@@ -10,10 +10,22 @@
 #                                                                              #
 # **************************************************************************** #
 
-COMPOSE = docker compose -f srcs/docker-compose.yml --env-file srcs/.env
+ENV_FILE = srcs/.env
+COMPOSE_FILE = srcs/docker-compose.yml
+COMPOSE = docker compose -f $(COMPOSE_FILE) --env-file $(ENV_FILE)
 
-start:	build
+
+all: build upd
+
+dir:
+	mkdir -p "$(HOME)/data/mariadb"
+	mkdir -p "$(HOME)/data/mariadb"
+
+upd:	dir $(ENV_FILE)
 	$(COMPOSE) up -d
+
+start:
+	$(COMPOSE) start
 
 stop:
 	$(COMPOSE) stop
@@ -21,17 +33,25 @@ stop:
 down:
 	$(COMPOSE) down
 
-restart:
-	$(COMPOSE) restart
-
 build:
 	$(COMPOSE) build
 
-clean: down
-	$(COMPOSE) rm
-	docker volume rm mariadb
-	docker volume rm wordpress
+ps:
+	$(COMPOSE) ps
 
-re: clean start
+logs:
+	$(COMPOSE) logs
 
-.PHONY: start stop restart build clean
+logs.%:
+	$(COMPOSE) logs $*
+
+clean:
+	$(COMPOSE) down -v
+
+fclean: clean
+	docker system prune -a --volumes -f
+	sudo rm -rf "$(HOME)/data"
+
+re: clean all
+
+.PHONY: all dir upd start stop down build clean fclean ps re logs
