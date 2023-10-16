@@ -3,7 +3,6 @@ version: '3.9'
 services:
   mariadb:
     container_name: mariadb
-    image: nibenoit/mariadb
     build: 
       context: requirements/mariadb
       args:
@@ -23,7 +22,6 @@ services:
       - mariadb:/var/lib/mysql
   wordpress:
     container_name: wordpress
-    image: nibenoit/wordpress
     build: requirements/wordpress
     networks:
       - inception
@@ -38,7 +36,6 @@ services:
       - mariadb
   nginx:
     container_name: nginx
-    image: nibenoit/nginx
     build:
       context: requirements/nginx
       args:
