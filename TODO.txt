@@ -6,10 +6,6 @@ create in Makefile
 
 ----
 
-Make test without image in docker-commpose
-
----
-
 Create user's wordpress
 
 --

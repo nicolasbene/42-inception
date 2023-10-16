@@ -21,13 +21,14 @@ RUN apt install -y ghostscript \
                 mariadb-client \
                 curl
 
-RUN mkdir -p /run/php
-RUN mkdir -p /var/www/html
+RUN mkdir -p /run/php && \
+    mkdir -p /var/www/html
 
-RUN wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip
-RUN unzip /tmp/wordpress.zip -d /tmp/wordpress ; rm /tmp/wordpress.zip
-RUN mv /tmp/wordpress/* /var/www/html
-RUN rmdir /tmp/wordpress
+RUN wget https://wordpress.org/latest.zip -O /tmp/wordpress.zip && \
+    unzip /tmp/wordpress.zip -d /tmp/wordpress && rm /tmp/wordpress.zip && \
+    mv /tmp/wordpress/* /var/www/html && \
+    rmdir /tmp/wordpress
+
 COPY ./wp-config.php /var/www/html/wordpress
 RUN chown -R www-data:www-data /var/www/html/wordpress
 
@@ -40,6 +41,8 @@ RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY docker-entrypoint.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+EXPOSE 9000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
