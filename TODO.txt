@@ -9,3 +9,5 @@ a tester et modifier le chemin des volumes des containers
 Create user's wordpress
 
 --
+
+connexion mariadb failed
