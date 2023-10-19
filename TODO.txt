@@ -1,13 +1,4 @@
-Set the volumes path to:
-- /home/nibenoit/data/mariadb
-- /home/nibenoit/data/wordpress
-
-a tester et modifier le chemin des volumes des containers
-
-----
-
-Create user's wordpress
+Adminer
 
 --
-
-connexion mariadb failed
+tester la connexion root sans mdp a al db de mariadb

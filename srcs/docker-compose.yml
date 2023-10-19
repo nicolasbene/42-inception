@@ -1,25 +1,22 @@
 version: '3.9'
 
+name: inception
 services:
   mariadb:
     container_name: mariadb
     build: 
       context: requirements/mariadb
-      args:
-        - MYSQL_ROOT_PASSWD
-        - MYSQL_DATABASE
-        - MYSQL_USER
-        - MYSQL_PASSWD
+    environment:
+      - MYSQL_ROOT_PASSWD
+      - MYSQL_USER
+      - MYSQL_USER_PASSWD
+      - MYSQL_DATABASE
     networks:
       - inception
     restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWD
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWD
     volumes:
       - mariadb:/var/lib/mysql
+
   wordpress:
     container_name: wordpress
     build: requirements/wordpress
@@ -27,9 +24,10 @@ services:
       - inception
     restart: unless-stopped
     environment:
-      - MYSQL_USER
-      - MYSQL_PASSWD
       - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_USER_PASSWD
+      - MYSQL_HOST=mariadb
       - NGINX_DOMAIN
       - WORDPRESS_ADMIN_USER
       - WORDPRESS_ADMIN_PASSWD
@@ -39,9 +37,8 @@ services:
       - WORDPRESS_AUTHOR_EMAIL
       - WORDPRESS_AUTHOR_PASSWD
     volumes:
-      - wordpress:/var/www/html/wordpress
-    depends_on:
-      - mariadb
+      - wordpress:/var/www/wordpress
+
   nginx:
     container_name: nginx
     build:
@@ -54,7 +51,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress:/var/www/wordpress:ro
     depends_on:
       - wordpress
 
@@ -65,14 +62,14 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: $HOME/data/mariadb
+      device: $HOME/$DATA_DIR/mariadb
   wordpress:
     name: wordpress
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: $HOME/data/wordpress
+      device: $HOME/$DATA_DIR/wordpress
 
 networks:
   inception:
