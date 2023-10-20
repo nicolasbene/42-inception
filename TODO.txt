@@ -1,4 +1,0 @@
-Adminer
-
---
-tester la connexion root sans mdp a al db de mariadb
